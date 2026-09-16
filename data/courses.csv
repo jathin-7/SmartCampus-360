@@ -1,0 +1,9 @@
+type,code,title,credits,slot,facultyId,maxSeats,p1,p2,p3
+THEORY,CSE2004,Database Management Systems,3,D1,FAC104,60,3,0,
+THEORY,MAT2002,Discrete Mathematics and Graph Theory,4,C1,FAC103,60,3,1,
+THEORY,CSE2001,Data Structures and Algorithms,4,B1,FAC102,60,3,1,
+THEORY,CSE3999,Special Topics in Deep Learning & Generative AI,2,E1,FAC101,2,2,0,
+LAB,CSE2006L,Java Programming Lab,1,L1+L2,FAC101,30,2,Eclipse IDE / JDK 21,1200.00
+LAB,CSE2004L,DBMS Laboratory,1,L3+L4,FAC104,30,2,PostgreSQL & MySQL Workbench,1500.00
+THEORY,CSE2008,Software Engineering,3,A1,FAC101,60,3,0,
+THEORY,CSE2006,Programming in Java,4,A1,FAC101,60,3,1,

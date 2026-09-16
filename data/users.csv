@@ -1,0 +1,7 @@
+role,userId,fullName,email,passwordHash,param1,param2,param3
+STUDENT,25BAI10611,YATHAM JATHINDRA REDDY,jathindra.reddy2025@vitbhopal.ac.in,student@123,25BAI10611,B.Tech Computer Science (AI & ML),3
+STUDENT,25BAI10042,Aarav Sharma,aarav.sharma2025@vitbhopal.ac.in,student@123,25BAI10042,B.Tech Computer Science (AI & ML),3
+STUDENT,25BAI10099,Rahul Verma,rahul@vit.ac.in,pass,25BAI10099,B.Tech AI,3
+FACULTY,FAC101,Dr. Rajesh Raman,rajesh.raman@vitbhopal.ac.in,faculty@123,FAC101,Computer Science & Engineering,Academic Block 2 - Cabin 402
+FACULTY,FAC102,Dr. Priya Sundaram,priya.sundaram@vitbhopal.ac.in,faculty@123,FAC102,Computer Science & Engineering,Academic Block 1 - Cabin 215
+ADMIN,ADMIN01,Academic Registrar Admin,admin@vitbhopal.ac.in,admin@123,Academic Staff College,3,
