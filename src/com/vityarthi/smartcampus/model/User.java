@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * Abstract base class representing a registered campus user.
- * Demonstrates Abstraction and Encapsulation.
+ * Base class for all university users (students, faculty, and administrators).
  */
 public abstract class User implements Comparable<User> {
     private final String userId;

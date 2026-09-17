@@ -6,7 +6,7 @@
 <style>
   @page {
     size: A4;
-    margin: 20mm 15mm 20mm 15mm;
+    margin: 18mm 15mm 18mm 15mm;
     @bottom-center {
       content: counter(page);
     }
@@ -29,47 +29,47 @@
     flex-direction: column;
     justify-content: space-between;
     border: 3px double #1a365d;
-    padding: 40px;
+    padding: 35px;
     box-sizing: border-box;
     text-align: center;
   }
   .university-badge {
     color: #1a365d;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 800;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
   }
   .dept-title {
-    font-size: 14px;
+    font-size: 13px;
     color: #4a5568;
     margin-top: 5px;
     font-weight: 600;
     letter-spacing: 0.5px;
   }
   .project-box {
-    margin: 60px 0;
+    margin: 50px 0;
   }
   .project-tag {
     display: inline-block;
     background: #ebf8ff;
     color: #2b6cb0;
-    padding: 6px 16px;
+    padding: 5px 15px;
     border-radius: 20px;
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     border: 1px solid #bee3f8;
   }
   .project-title {
-    font-size: 30px;
+    font-size: 28px;
     color: #1a365d;
     font-weight: 800;
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
   }
   .project-subtitle {
-    font-size: 16px;
+    font-size: 15px;
     color: #4a5568;
     margin: 0;
   }
@@ -77,8 +77,8 @@
     background: #f7fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    padding: 24px;
-    max-width: 500px;
+    padding: 20px;
+    max-width: 480px;
     margin: 0 auto;
     text-align: left;
   }
@@ -108,18 +108,18 @@
   h1 {
     color: #1a365d;
     border-bottom: 2px solid #2b6cb0;
-    padding-bottom: 6px;
-    margin-top: 30px;
-    font-size: 20px;
+    padding-bottom: 5px;
+    margin-top: 25px;
+    font-size: 18px;
   }
   h2 {
     color: #2b6cb0;
-    margin-top: 20px;
-    font-size: 16px;
+    margin-top: 18px;
+    font-size: 15px;
   }
   h3 {
     color: #2d3748;
-    font-size: 14px;
+    font-size: 13px;
   }
   p, li {
     text-align: justify;
@@ -127,12 +127,12 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 15px 0;
+    margin: 12px 0;
     font-size: 12px;
   }
   th, td {
     border: 1px solid #cbd5e0;
-    padding: 8px 10px;
+    padding: 7px 9px;
     text-align: left;
   }
   th {
@@ -146,27 +146,19 @@
   pre {
     background-color: #1a202c;
     color: #e2e8f0;
-    padding: 12px;
+    padding: 10px;
     border-radius: 6px;
     overflow-x: auto;
     font-family: 'Consolas', 'Courier New', monospace;
     font-size: 11px;
-    line-height: 1.4;
+    line-height: 1.35;
   }
   .diagram-box {
     background: #f8fafc;
     border: 1px solid #cbd5e1;
     border-radius: 6px;
-    padding: 15px;
-    margin: 15px 0;
-  }
-  .badge {
-    background-color: #38a169;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
+    padding: 12px;
+    margin: 12px 0;
   }
 </style>
 </head>
@@ -176,14 +168,14 @@
 <div class="cover-page">
   <div>
     <div class="university-badge">VELLORE INSTITUTE OF TECHNOLOGY</div>
-    <div class="dept-title">SCHOOL OF COMPUTER SCIENCE AND ENGINEERING</div>
+    <div class="dept-title">SCHOOL OF COMPUTING SCIENCE AND ENGINEERING</div>
     <div class="dept-title">VITyarthi - Build Your Own Project Evaluation</div>
   </div>
 
   <div class="project-box">
     <div class="project-tag">Course Project Report</div>
     <div class="project-title">SmartCampus 360</div>
-    <div class="project-subtitle">Integrated Academic & Resource Allocation System</div>
+    <div class="project-subtitle">Academic &amp; Course Registration Management System</div>
   </div>
 
   <div class="candidate-card">
@@ -204,7 +196,7 @@
       <span class="candidate-val">CSE2006 — Programming in Java</span>
     </div>
     <div class="candidate-row">
-      <span class="candidate-label">Semester / Term:</span>
+      <span class="candidate-label">Academic Term:</span>
       <span class="candidate-val">Fall Semester 2025–2026</span>
     </div>
     <div class="candidate-row">
@@ -223,22 +215,26 @@
 <!-- 2. INTRODUCTION -->
 <h1>2. Introduction</h1>
 <p>
-Higher education academic operations represent a complex orchestration of student preferences, faculty loads, time slot constraints, prerequisite validations, and room capacities. In institutions utilizing modern academic models such as the Fully Flexible Credit System (FFCS), students select their desired courses, faculty members, and scheduling slots dynamically. Without strict algorithmic governance, issues like timetable slot clashes, credit limit exceedance, and inefficient section queueing can emerge.
+Course registration is one of the most important events for every student at VIT each semester. Under the Fully Flexible Credit System (FFCS), students have the freedom to pick their courses, select their professors, and create a custom timetable of lecture and lab slots (such as A1, B1, C1, L1+L2, etc.).
 </p>
 <p>
-<strong>SmartCampus 360</strong> is a high-performance, modular academic management engine engineered entirely in Java 21. It models academic entities (students, faculty, administrators, theory lectures, and computer laboratories) into a cohesive Object-Oriented architecture. The project demonstrates real-time slot conflict resolution, credit regulation, fair FIFO waitlisting, dynamic 10-point CGPA recalculation, and background multithreaded notification dispatching.
+While this flexibility is great, it also creates common real-world challenges: students can accidentally pick overlapping time slots, popular courses get filled in seconds with no automatic waitlist to promote students when someone drops, credit limits need to be tracked, and maintaining the mandatory 75% attendance rule is critical to avoid being debarred from the Final Assessment Test (FAT).
+</p>
+<p>
+I built <strong>SmartCampus 360</strong> to address these exact problems. Developed in pure Java 21, it is a modular, console-based academic management system that applies core Object-Oriented Programming (OOP) principles learned in CSE2006. It features automated timetable clash detection, fair FIFO waitlist management with automatic promotion on drops, 27-credit limit enforcement, real-time attendance tracking, dynamic CGPA computation, and persistent CSV storage.
 </p>
 
 <!-- 3. PROBLEM STATEMENT -->
 <h1>3. Problem Statement</h1>
 <p>
-University enrollment and student management systems face systemic operational hurdles:
+During course registration and throughout the academic semester, students and faculty face several practical issues:
 </p>
 <ul>
-  <li><strong>Timetable Slot Collisions:</strong> In complex timetables (e.g. morning/evening shifts with compound laboratory blocks), students often register for overlapping classes.</li>
-  <li><strong>Manual Waitlist Processing:</strong> When popular courses reach seat limits, students are forced to continually refresh web pages. Vacant seats resulting from drops often go unutilized.</li>
-  <li><strong>Credit Overload:</strong> Lack of atomic validation allows students to exceed academic credit caps (27 credits/semester), complicating degree auditing.</li>
-  <li><strong>Attendance Debarment Risk:</strong> Failure to provide real-time attendance warnings leads to surprise debarments when students drop below the mandatory 75% threshold.</li>
+  <li><strong>Timetable Slot Clashes:</strong> It is easy for students to accidentally pick subjects that take place during the same hour (for instance, two courses scheduled on Slot A1, or a 2-hour lab slot like L1+L2 overlapping with an afternoon lecture).</li>
+  <li><strong>Lack of Automated Waitlist Promotion:</strong> When a course reaches capacity, students are blocked. If an enrolled student drops the course later, there is no automatic system to immediately promote the next student in line.</li>
+  <li><strong>Credit Overload:</strong> Students are restricted to a maximum of 27 credits per semester. Without automated checks during registration, students can exceed this limit.</li>
+  <li><strong>Attendance Debarment Risk:</strong> At VIT, maintaining at least 75% attendance is mandatory. Students often realize their attendance has fallen below 75% too late to take corrective action.</li>
+  <li><strong>Scattered Academic Tracking:</strong> Calculating weighted CGPA and viewing course fee breakdowns often require separate tools rather than an integrated platform.</li>
 </ul>
 
 <!-- 4. FUNCTIONAL REQUIREMENTS -->
@@ -260,22 +256,22 @@ University enrollment and student management systems face systemic operational h
     <tr>
       <td><strong>2. Course Catalog</strong></td>
       <td>FR-2.1<br>FR-2.2</td>
-      <td>Management of Theory courses and Laboratory courses with specific slots, credits, and capacity limits.</td>
+      <td>Manage Theory courses (lectures + tutorials) and Lab courses (practical hours + software tools) with slots and quotas.</td>
     </tr>
     <tr>
       <td><strong>3. Registration Engine</strong></td>
       <td>FR-3.1<br>FR-3.2<br>FR-3.3</td>
-      <td>Automated prerequisite verification, credit limit enforcement (max 27), and deterministic timetable slot collision checking.</td>
+      <td>Verify prerequisites, enforce the 27-credit semester ceiling, and check for timetable slot clashes before enrollment.</td>
     </tr>
     <tr>
       <td><strong>4. Waitlist Engine</strong></td>
       <td>FR-4.1<br>FR-4.2</td>
-      <td>Automatic FIFO waitlist queuing when capacity is reached; instant promotion of the next student when a seat is dropped.</td>
+      <td>Queue students in FIFO order when a course is full; automatically promote the next student whenever an enrolled seat is dropped.</td>
     </tr>
     <tr>
-      <td><strong>5. Academic &amp; Attendance</strong></td>
+      <td><strong>5. Attendance &amp; GPA</strong></td>
       <td>FR-5.1<br>FR-5.2</td>
-      <td>Dynamic 10-point CGPA computation weighted by credits, and real-time attendance tracking flagging students below 75%.</td>
+      <td>Record per-session attendance, flag students below 75%, and dynamically compute credit-weighted CGPA on grade entry.</td>
     </tr>
   </tbody>
 </table>
@@ -283,11 +279,12 @@ University enrollment and student management systems face systemic operational h
 <!-- 5. NON-FUNCTIONAL REQUIREMENTS -->
 <h1>5. Non-Functional Requirements</h1>
 <ul>
-  <li><strong>Performance:</strong> In-memory lookups via <code>ConcurrentHashMap</code> execute in \(O(1)\) time complexity. Conflict detection runs in \(O(K)\) where \(K\) is current registrations.</li>
-  <li><strong>Security:</strong> Clear separation of roles via RBAC. Sensitive data and credentials are kept encapsulated and hashed.</li>
-  <li><strong>Reliability &amp; Persistence:</strong> Persistent state synchronization through CSV file I/O ensuring data durability across system reboots.</li>
-  <li><strong>Concurrency &amp; Thread Safety:</strong> Non-blocking background event dispatching using <code>BlockingQueue</code> and daemon threads.</li>
-  <li><strong>Maintainability:</strong> Clean architecture strictly adhering to SOLID principles and package modularity.</li>
+  <li><strong>Performance:</strong> Instant in-memory lookups using <code>ConcurrentHashMap</code> execute in sub-millisecond time.</li>
+  <li><strong>Security:</strong> Clear role separation prevents students from editing grades or courses. Passwords support SHA-256 hashing.</li>
+  <li><strong>Usability:</strong> Formatted console output with tables, dividers, and a built-in automated <code>--demo</code> flag for quick grading.</li>
+  <li><strong>Reliability &amp; Persistence:</strong> Saves all user, course, and registration records to CSV files in <code>data/</code> so state survives restarts.</li>
+  <li><strong>Concurrency:</strong> Thread-safe seat allocation and a background daemon worker using <code>BlockingQueue</code> for async alerts.</li>
+  <li><strong>Maintainability:</strong> Clean package structure (<code>model</code>, <code>service</code>, <code>repository</code>, <code>exception</code>, <code>concurrency</code>).</li>
 </ul>
 
 <div class="page-break"></div>
@@ -295,13 +292,13 @@ University enrollment and student management systems face systemic operational h
 <!-- 6. SYSTEM ARCHITECTURE -->
 <h1>6. System Architecture</h1>
 <p>
-The system follows a multi-tiered architecture decoupling user presentation, business logic services, concurrency workers, domain entities, and file-based data stores:
+The system follows a multi-tiered architecture that separates the user interface, business logic services, background workers, domain models, and file storage:
 </p>
 <div class="diagram-box">
 <pre>
 +-------------------------------------------------------------------------+
 |                           PRESENTATION LAYER                            |
-|             com.vityarthi.smartcampus.Main (CLI &amp; Demo Runner)          |
+|             com.vityarthi.smartcampus.Main (CLI &amp; Demo Mode)            |
 +-------------------------------------------------------------------------+
                                     |
                                     v
@@ -342,67 +339,70 @@ The system follows a multi-tiered architecture decoupling user presentation, bus
          |                                 |                                 |
          v                                 v                                 v
     [STUDENT]                          [FACULTY]                          [ADMIN]
-  - View Course Catalog              - View Class Rosters               - Add / Modify Courses
-  - Register Course (FFCS)           - Mark Lecture Attendance          - View Seat Occupancy
-  - Drop Course                      - Submit Student Grades            - Audit Attendance Warnings
+  - View Course Catalog              - View Class Rosters               - Add New Courses
+  - Register Courses (FFCS)          - Mark Lecture Attendance          - View Seat Occupancy
+  - Drop Courses                     - Enter Final Grades               - Audit Attendance Warnings
   - View Academic Transcript &amp; CGPA
-  - Calculate Tuition Fees
+  - View Tuition Fee Breakdown
 </pre>
 </div>
 
 <h2>7.2 Registration Process Flow / Workflow Diagram</h2>
 <div class="diagram-box">
 <pre>
-[User Initiates Registration]
-             |
-             v
-[Check Student Exists &amp; Active]
-             |
-             v
-[Prerequisites Completed &amp; Passed?] ----(NO)----> [Throw CampusException]
-             | (YES)
-             v
-[Current Credits + Course &lt;= 27?] ------(NO)----> [Throw CreditLimitExceededException]
-             | (YES)
-             v
-[Timetable Slot Clash Detected?] -------(YES)---> [Throw SlotClashException]
-             | (NO)
-             v
+[Student Chooses Course]
+           |
+           v
+[Check Prerequisites Passed?] ------(NO)----> [Display Prerequisite Error]
+           | (YES)
+           v
+[Current Credits + Course &lt;= 27?] --(NO)----> [Throw CreditLimitExceededException]
+           | (YES)
+           v
+[Timetable Slot Clash Detected?] ---(YES)---> [Throw SlotClashException]
+           | (NO)
+           v
 [Is Course Section Full?]
-        /         \
-    (NO)           (YES)
-     |               |
-     v               v
-[Set Status:     [Enqueue to FIFO Waitlist]
+      /         \
+  (NO)           (YES)
+   |               |
+   v               v
+[Set Status:     [Place in Waitlist Queue]
   ENROLLED]      [Set Status: WAITLISTED]
-     |               |
-     v               v
-[Update Student Credits &amp; Persist]
-             |
-             v
-[Dispatch Asynchronous Notification]
+   |               |
+   v               v
+[Update Credits &amp; Save to CSV]
+           |
+           v
+[Send Background Notification]
 </pre>
 </div>
 
 <div class="page-break"></div>
 
-<h2>7.3 Sequence Diagram (Registration &amp; Waitlist Promotion)</h2>
+<h2>7.3 Sequence Diagram (Registration &amp; Auto-Promotion on Drop)</h2>
 <div class="diagram-box">
 <pre>
-Student                 EnrollmentService               Course               NotificationWorker
-   |                            |                         |                          |
-   |---- registerCourse() ----->|                         |                          |
-   |                            |---- isFull()? --------->|                          |
-   |                            |&lt;--- true (Section Full)-|                          |
-   |                            |---- enrollStudent() --->| (Enqueued into Waitlist) |
-   |                            |--------------------------------------------------->| dispatch("Waitlisted")
-   |&lt;--- Return WAITLISTED -----|                         |                          |
-   |                            |                         |                          |
-   | (Peer Student Drops Course)|                         |                          |
-   |                            |---- dropCourse() ------>|                          |
-   |                            |---- removeStudent() --->|                          |
-   |                            |&lt;--- promotedStudentId --| (Polled from FIFO Queue) |
-   |                            |--------------------------------------------------->| dispatch("Seat Promoted")
+Student A                EnrollmentService             Course Section          Student B (Waitlist)
+    |                            |                            |                         |
+    |---- registerCourse() ----->|                            |                         |
+    |                            |---- isFull()? ------------>|                         |
+    |                            |&lt;--- false (Seat Available)-|                         |
+    |                            |---- enrollStudent() ------>| (Seat booked)           |
+    |&lt;--- Status: ENROLLED ------|                            |                         |
+    |                            |                            |                         |
+    |                            |                            | (Attempts to register)  |
+    |                            |&lt;--- registerCourse() --------------------------------|
+    |                            |---- isFull()? ------------>|                         |
+    |                            |&lt;--- true (Course Full) ----|                         |
+    |                            |---- enqueueWaitlist() ---->|                         |
+    |                            |---------------- Status: WAITLISTED -----------------&gt;|
+    |                            |                            |                         |
+    | (Student A drops course)   |                            |                         |
+    |---- dropCourse() ---------&gt;|                            |                         |
+    |                            |---- removeStudent() ------&gt;|                         |
+    |                            |&lt;--- promotedStudentId -----| (Student B popped)      |
+    |                            |---------------- Promoted to ENROLLED ---------------&gt;|
 </pre>
 </div>
 
@@ -455,7 +455,7 @@ Student                 EnrollmentService               Course               Not
 </pre>
 </div>
 
-<h2>7.5 Entity-Relationship (ER) / Storage Diagram</h2>
+<h2>7.5 Storage / ER Diagram</h2>
 <div class="diagram-box">
 <pre>
 +-------------------+           +-----------------------+           +-------------------+
@@ -477,10 +477,11 @@ Student                 EnrollmentService               Course               Not
 <!-- 8. DESIGN DECISIONS & RATIONALE -->
 <h1>8. Design Decisions &amp; Rationale</h1>
 <ol>
-  <li><strong>Polymorphic Architecture:</strong> Rather than relying on conditional branching with flags, `TheoryCourse` and `LabCourse` extend `Course` and override `calculateTuitionFee()`, cleanly capturing domain variations.</li>
-  <li><strong>Custom Domain Exception Hierarchy:</strong> Replacing generic runtime exceptions with domain-specific classes (`SlotClashException`, `CreditLimitExceededException`, `CourseFullException`) provides clear feedback to users.</li>
-  <li><strong>Repository Pattern with File Synchronization:</strong> The `DataStore` interface decouples the services from storage mechanisms, allowing seamless transitions between in-memory collections and persistent CSV files.</li>
-  <li><strong>Asynchronous Daemon Worker:</strong> The `NotificationWorker` implements `Runnable` and uses a thread-safe `BlockingQueue` to process alerts without degrading application responsiveness.</li>
+  <li><strong>Inheritance for Courses (Theory vs Lab):</strong> Instead of using messy flags like <code>boolean isLab</code>, I created an abstract <code>Course</code> class and extended it into <code>TheoryCourse</code> and <code>LabCourse</code>. This allows clean, polymorphic fee calculation without conditional checks.</li>
+  <li><strong>Custom Domain Exceptions:</strong> Rather than throwing generic exceptions, I created domain-specific exceptions (<code>SlotClashException</code>, <code>CreditLimitExceededException</code>, <code>CourseFullException</code>). This makes error handling clear and lets the UI show exact reasons when an action fails.</li>
+  <li><strong>FIFO Queue for Waitlists:</strong> Fairness is essential in course registration. I used Java's <code>LinkedList</code> implementing the <code>Queue</code> interface so waitlisted students are queued strictly in the order they applied.</li>
+  <li><strong>File-Based CSV Storage:</strong> To keep the project completely portable without requiring external database setups (like MySQL or Oracle), I built a CSV storage manager using Java NIO.2. Anyone with JDK 21 can clone and run it immediately.</li>
+  <li><strong>Background Worker Thread:</strong> To simulate real-time notification alerts without freezing the console interface, I used a dedicated daemon thread running a <code>BlockingQueue</code>.</li>
 </ol>
 
 <!-- 9. IMPLEMENTATION DETAILS -->
@@ -489,16 +490,16 @@ Student                 EnrollmentService               Course               Not
 The project is built entirely on standard Java 21 features with zero external runtime dependencies:
 </p>
 <ul>
-  <li><strong>Encapsulation:</strong> Private fields with explicit accessors/mutators and immutable collections (`Collections.unmodifiableList`).</li>
-  <li><strong>Collections Framework:</strong> <code>ConcurrentHashMap</code> for thread safety, <code>LinkedHashSet</code> for ordered student rosters, and <code>LinkedList</code> for FIFO waitlisting.</li>
+  <li><strong>Encapsulation:</strong> Private fields with explicit accessors/mutators and immutable collections (<code>Collections.unmodifiableList</code>).</li>
+  <li><strong>Collections Framework:</strong> <code>ConcurrentHashMap</code> for thread safety, <code>LinkedHashSet</code> for student rosters, and <code>LinkedList</code> for FIFO waitlists.</li>
   <li><strong>Regular Expressions:</strong> <code>InputValidator</code> validates registration numbers (e.g., <code>25BAI10611</code>) and course codes (e.g., <code>CSE2006</code>).</li>
-  <li><strong>File I/O (NIO.2):</strong> Utilizes <code>Files.newBufferedReader()</code> and <code>BufferedWriter</code> for CSV parsing and serialization.</li>
+  <li><strong>File I/O (NIO.2):</strong> Utilizes <code>Files.newBufferedReader()</code> and <code>BufferedWriter</code> for clean CSV parsing and serialization.</li>
 </ul>
 
 <!-- 10. SCREENSHOTS / RESULTS -->
 <h1>10. Screenshots / Execution Results</h1>
 
-<h3>10.1 Automated Test Suite Execution</h3>
+<h3>10.1 Automated Test Suite Execution Output</h3>
 <pre>
 ========================================================================
              SMARTCAMPUS - AUTOMATED VALIDATION TEST SUITE            
@@ -522,7 +523,7 @@ Candidate: YATHAM JATHINDRA REDDY | Reg No: 25BAI10611 | Course: CSE2006
 ========================================================================
 </pre>
 
-<h3>10.2 Academic Transcript Output</h3>
+<h3>10.2 Student Academic Transcript Output</h3>
 <pre>
 ========================================================================
                    VIT SMARTCAMPUS ACADEMIC TRANSCRIPT                  
@@ -556,28 +557,28 @@ Quality assurance was achieved through automated unit testing and full system de
 </ul>
 
 <!-- 12. CHALLENGES FACED -->
-<h1>12. Challenges Faced</h1>
+<h1>12. Challenges Faced &amp; How I Solved Them</h1>
 <ul>
-  <li><strong>Compound Slot Clashes:</strong> Handling composite laboratory slots (e.g. <code>L1+L2</code>) required tokenization and set overlap algorithms.</li>
-  <li><strong>Atomic Waitlist Promotion:</strong> Preventing race conditions during simultaneous drops and adds required thread synchronization.</li>
-  <li><strong>Incomplete Courses in GPA:</strong> Ungraded courses were excluded from GPA weight calculations to prevent skewed semester results.</li>
+  <li><strong>Handling Compound Timetable Slots:</strong> In VIT's timetable, labs occupy compound slots like <code>L1+L2</code>. A simple string match failed when comparing with a single slot <code>L1</code>. I tokenized slot codes on <code>+</code> into a <code>Set&lt;String&gt;</code> so collision checks check set intersections.</li>
+  <li><strong>Race Conditions in Waitlist Promotion:</strong> Multiple simultaneous drops could cause inconsistent seat counts. I synchronized critical seat allocation methods and used <code>ConcurrentHashMap</code> for storage maps.</li>
+  <li><strong>Incomplete Courses in CGPA:</strong> Ungraded courses were skewing CGPA. I updated the calculation to sum only graded credits, preventing division by zero or inaccurate averages.</li>
 </ul>
 
 <!-- 13. LEARNINGS & KEY TAKEAWAYS -->
 <h1>13. Learnings &amp; Key Takeaways</h1>
 <ul>
-  <li>Practical application of core OOP principles in modeling real-world academic constraints.</li>
-  <li>Effective use of the Java Collections Framework (Sets, Maps, FIFO Queues).</li>
-  <li>Implementation of multithreaded background processing using standard Java concurrency utilities.</li>
-  <li>Building resilient systems with custom exceptions and defensive programming techniques.</li>
+  <li><strong>Real Value of OOP:</strong> Building <code>Course</code>, <code>TheoryCourse</code>, and <code>LabCourse</code> with polymorphic fee calculations showed me how clean and extensible object-oriented code is compared to nested <code>if-else</code> checks.</li>
+  <li><strong>Java Collections in Practice:</strong> Choosing the right data structure matters—using <code>Set</code> for duplicate checks, <code>Queue</code> for fair waitlisting, and <code>Map</code> for instant lookups made the system fast and readable.</li>
+  <li><strong>Thread Safety:</strong> Learning how to use daemon threads, <code>BlockingQueue</code>, and <code>synchronized</code> blocks showed me how real backend systems handle background tasks safely.</li>
+  <li><strong>Defensive Programming:</strong> Writing custom exceptions and input validators helped me catch bugs early before they corrupted stored data.</li>
 </ul>
 
 <!-- 14. FUTURE ENHANCEMENTS -->
 <h1>14. Future Enhancements</h1>
 <ul>
-  <li><strong>Spring Boot REST APIs:</strong> Exposing backend endpoints via Spring Web with JWT security.</li>
-  <li><strong>Relational Database:</strong> Migrating CSV storage to PostgreSQL using Spring Data JPA.</li>
-  <li><strong>Interactive Web Portal:</strong> Developing a responsive React/Angular interface with timetable grid rendering.</li>
+  <li><strong>Graphical User Interface (GUI):</strong> Build a modern visual timetable grid using JavaFX or React.</li>
+  <li><strong>Database Integration:</strong> Connect the <code>DataStore</code> interface to PostgreSQL or MySQL via JDBC.</li>
+  <li><strong>Real-Time Push Notifications:</strong> Send actual email or SMS notifications when a student is promoted from the waitlist.</li>
 </ul>
 
 <!-- 15. REFERENCES -->
@@ -585,7 +586,7 @@ Quality assurance was achieved through automated unit testing and full system de
 <ol>
   <li>Schildt, Herbert. <em>Java: The Complete Reference</em>, 12th Edition. McGraw-Hill Education, 2021.</li>
   <li>Bloch, Joshua. <em>Effective Java</em>, 3rd Edition. Addison-Wesley Professional, 2018.</li>
-  <li>Oracle Corporation. <em>Java SE 21 Documentation and Language Specifications</em>, 2023.</li>
+  <li>Oracle Corporation. <em>Java SE 21 Language Documentation &amp; Specifications</em>, 2023.</li>
   <li>Vellore Institute of Technology. <em>FFCS Academic Regulations Handbook</em>, 2025.</li>
 </ol>
 

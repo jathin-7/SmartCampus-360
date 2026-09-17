@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Concrete subclass representing a Faculty instructor.
- * Demonstrates Polymorphism and Domain Encapsulation.
+ * Represents a faculty instructor teaching courses in a department.
  */
 public class Faculty extends User {
     private final String employeeId;

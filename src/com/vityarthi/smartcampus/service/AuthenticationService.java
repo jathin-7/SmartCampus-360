@@ -11,8 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 /**
- * Service managing user authentication, credential validation, and security hashing.
- * Demonstrates Security Non-Functional Requirement and Service-Oriented Architecture.
+ * Handles user login verification and SHA-256 password hashing.
  */
 public class AuthenticationService {
     private final DataStore dataStore;

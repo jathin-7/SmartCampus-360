@@ -8,8 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Background worker thread executing concurrent notification dispatching and queue monitoring.
- * Demonstrates Java Multithreading, Runnable, Producer-Consumer Pattern, and Concurrency Controls.
+ * Background daemon thread that processes student notifications asynchronously using a queue.
  */
 public class NotificationWorker implements Runnable {
     public record NotificationMessage(String recipientId, String message, long timestamp) {}

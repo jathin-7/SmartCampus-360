@@ -1,174 +1,132 @@
-# SmartCampus 360 - Integrated Academic & Resource Allocation System
+# SmartCampus 360 - Academic & Course Registration System
 
-> **Course**: CSE2006 - Programming in Java  
-> **Candidate**: YATHAM JATHINDRA REDDY  
-> **Registration Number**: 25BAI10611  
-> **Institution**: Vellore Institute of Technology (VIT)
+A modular Java project built for **CSE2006 (Programming in Java)** at **VIT Bhopal**.
 
----
-
-## 1. Project Overview
-**SmartCampus 360** is an enterprise-grade academic management and resource allocation engine engineered in Java 21. Designed specifically to model and solve university operational complexities—such as the Fully Flexible Credit System (FFCS) course registration, timetable slot collision avoidance, quota-limited section waitlists, attendance threshold monitoring, and dynamic CGPA computation—the project demonstrates mastery over Object-Oriented Programming (OOP), the Java Collections Framework, Custom Exception Hierarchies, File I/O Persistence, and Multithreading.
+- **Student Name**: YATHAM JATHINDRA REDDY
+- **Registration Number**: 25BAI10611
+- **Program**: B.Tech Computer Science (AI & ML)
+- **Course**: CSE2006 — Programming in Java
 
 ---
 
-## 2. Key Features
+## 📌 Project Overview
+**SmartCampus 360** is a console-based academic management system inspired by the Fully Flexible Credit System (FFCS) at VIT. It solves common real-world challenges faced by students and faculty during course registration:
 
-### 🎓 Academic & Student Lifecycle Management
-- **FFCS Timetable Slot Collision Detector**: Algorithmic validation preventing registration in clashing timetable slots (e.g., Slot `A1` vs `A1`, compound slots like `L1+L2`).
-- **Credit Limit Boundary Enforcement**: Real-time enforcement preventing student enrollment beyond the semester maximum (27 credits).
-- **Prerequisite Validation**: Automated verification ensuring prerequisite courses are passed prior to enrollment.
-- **Fair FIFO Waitlist Queue & Auto-Promotion**: When course quotas are full, students are queued in order; dropping a course automatically promotes the next student without manual staff intervention.
-- **Dynamic 10-Point CGPA Calculator**: Weighted average GPA computation (`Sum(Credits * GradePoints) / TotalCredits`) updated on grade submission.
-- **75% Attendance Compliance Monitor**: Per-student attendance tracking alerting faculty and administrators to students at risk of exam debarment.
-
-### 🏛️ Object-Oriented Architecture
-- **Abstraction & Polymorphism**:
-  - `User` abstract class specialized by `Student`, `Faculty`, and `Admin`.
-  - `Course` abstract base class specialized by `TheoryCourse` and `LabCourse`, featuring polymorphic tuition fee computations.
-- **Encapsulation & Validation**: Strict access modifiers, defensive copying of collections, and regex input validation (`InputValidator`).
-- **Robust Custom Exception Hierarchy**: Domain-specific unchecked exceptions (`SlotClashException`, `CreditLimitExceededException`, `CourseFullException`, `AuthenticationException`).
-
-### ⚙️ Concurrency & Persistence
-- **Multithreaded Background Dispatcher**: `NotificationWorker` daemon thread executing the Producer-Consumer pattern with `BlockingQueue` and `AtomicBoolean`.
-- **Thread-Safe Repository**: Memory-cached storage backed by `ConcurrentHashMap` with CSV serialization to disk in `data/`.
+1. **Preventing Timetable Clashes**: Automatically flags if a student tries to register for two courses running in the same slot (e.g., Slot `A1` vs `A1`, or composite slots like `L1+L2`).
+2. **Automated Waitlists**: When a course section is full, students are placed in a First-Come-First-Served (FIFO) waitlist. When any enrolled student drops the course, the next waitlisted student is automatically promoted and notified.
+3. **Credit Management**: Enforces the 27-credit semester cap so students do not overload their timetable.
+4. **Attendance Tracking (75% Rule)**: Tracks attendance per course and flags students who fall below the mandatory 75% cutoff to prevent FAT debarment.
+5. **Live CGPA Computation**: Calculates weighted GPA dynamically whenever grades (`S`, `A`, `B`, `C`, `D`, `E`, `F`) are recorded.
+6. **Data Persistence**: Automatically reads and saves users, courses, and enrollments to clean CSV files in `data/`.
 
 ---
 
-## 3. Technologies & Tools Used
-- **Programming Language**: Java (SE 21 LTS)
-- **Compiler**: `javac` 21
-- **Runtime**: Java Virtual Machine (JVM)
-- **Design Methodology**: Object-Oriented Analysis & Design (OOAD), Repository Pattern, Producer-Consumer Pattern
-- **Persistence**: File I/O (CSV data format)
-- **Testing**: Built-in Unit Test Harness (`SystemTestSuite`)
-- **Version Control**: Git
+## ✨ Key Features
+
+### For Students
+- View all available theory and lab courses with live seat availability.
+- Register for courses with instant slot clash and credit checks.
+- Drop courses and free up seats for waitlisted peers.
+- Check personal academic transcript with real-time CGPA.
+- Track course-wise attendance percentages.
+- View total semester tuition fees.
+
+### For Faculty
+- View the list of enrolled students for assigned courses.
+- Mark attendance (Present/Absent) session by session.
+- Enter final grades for students.
+
+### For Administrators
+- Add new theory and lab courses to the catalog with slot and capacity configurations.
+- View campus-wide seat occupancy and waitlist sizes.
+- View a dedicated list of attendance debarment warnings (<75%).
 
 ---
 
-## 4. Project Directory Structure
+## 💻 Java Concepts Applied
+This project was built without any heavy external libraries or databases, using pure Core Java (JDK 21):
+- **Object-Oriented Programming (OOP)**:
+  - **Abstraction**: Abstract `User` and `Course` base classes; `DataStore` interface.
+  - **Inheritance**: `Student`, `Faculty`, `Admin` extend `User`; `TheoryCourse`, `LabCourse` extend `Course`.
+  - **Polymorphism**: Overridden `calculateTuitionFee()` (lab courses add an infrastructure fee), overridden `getRoleSpecificDetails()`.
+  - **Encapsulation**: Private attributes, defensive copying of collections, and clean getter/setter methods.
+- **Custom Exceptions**: Specific domain exceptions including `SlotClashException`, `CreditLimitExceededException`, `CourseFullException`, and `AuthenticationException`.
+- **Java Collections Framework**: `ConcurrentHashMap` for thread-safe caching, `LinkedHashSet` for rosters, and `LinkedList` for FIFO waitlists.
+- **Multithreading**: A background `NotificationWorker` daemon thread uses a `BlockingQueue` to simulate async message delivery.
+- **File I/O (NIO.2)**: Reads and writes structured CSV files (`users.csv`, `courses.csv`, `enrollments.csv`) with automatic seed data initialization.
+
+---
+
+## 📁 Project Structure
 ```
 java project/
-├── .gitignore
-├── README.md                                    # Project documentation & execution guide
-├── statement.md                                 # Problem statement, scope & target users
-├── build_and_run.bat                            # Windows compile & launch script
-├── run_tests.bat                                # Windows automated test script
-├── generate_report_pdf.py                       # Automated report compilation script
+├── build_and_run.bat                            # Compile and start the app
+├── run_tests.bat                                # Run all automated tests
+├── generate_report_pdf.py                       # Compile the PDF report
+├── statement.md                                 # Problem statement & scope
+├── README.md                                    # This guide
 ├── Project_Report_CSE2006_25BAI10611.pdf        # Official 15-section project report (PDF)
 ├── data/                                        # Persistent CSV storage
 │   ├── users.csv
 │   ├── courses.csv
 │   └── enrollments.csv
-├── docs/                                        # Report documentation and templates
-│   ├── Project_Report.md
-│   └── report_template.html
+├── docs/
+│   ├── Project_Report.md                        # Full report documentation
+│   └── report_template.html                     # Styled HTML template for PDF
 └── src/
     └── com/vityarthi/smartcampus/
-        ├── Main.java                            # Main entry point (CLI & Demo runner)
-        ├── model/                               # OOP domain model hierarchy
-        │   ├── User.java
-        │   ├── Student.java
-        │   ├── Faculty.java
-        │   ├── Admin.java
-        │   ├── Course.java
-        │   ├── TheoryCourse.java
-        │   ├── LabCourse.java
-        │   ├── Slot.java
-        │   ├── Enrollment.java
-        │   ├── Grade.java
-        │   └── SystemRole.java
+        ├── Main.java                            # CLI & Demo runner
+        ├── model/                               # Domain entities
         ├── service/                             # Business logic & algorithms
-        │   ├── AuthenticationService.java
-        │   ├── CourseManagementService.java
-        │   ├── EnrollmentService.java
-        │   └── AnalyticsReportingService.java
-        ├── repository/                          # Persistence & data store
-        │   ├── DataStore.java
-        │   └── StorageManager.java
-        ├── concurrency/                         # Multithreading background worker
-        │   └── NotificationWorker.java
+        ├── repository/                          # CSV storage engine
+        ├── concurrency/                         # Background worker thread
         ├── exception/                           # Custom domain exceptions
-        │   ├── CampusException.java
-        │   ├── SlotClashException.java
-        │   ├── CreditLimitExceededException.java
-        │   ├── CourseFullException.java
-        │   ├── AuthenticationException.java
-        │   └── EntityNotFoundException.java
-        ├── util/                                # Input sanitization & formatting
-        │   ├── InputValidator.java
-        │   └── ConsoleFormatter.java
-        └── test/                                # Automated test suite
-            ├── TestCase.java
-            └── SystemTestSuite.java
+        ├── util/                                # Regex validator & console styles
+        └── test/                                # Automated unit test suite
 ```
 
 ---
 
-## 5. Steps to Install & Run
+## 🚀 How to Run the Project
 
 ### Prerequisites
-- JDK 21 or higher installed and accessible via command line (`java -version`, `javac -version`).
+- Java JDK 21 or later (`javac -version` and `java -version`)
 
-### Option A: Using Batch Scripts (Recommended on Windows)
-1. **Compile and Run Interactive Menu**:
+### Quick Start (Windows)
+1. **Interactive Console Menu**:
    ```cmd
-   build_and_run.bat
+   .\build_and_run.bat
    ```
-2. **Run Live Automated Demonstration (Zero-Input Mode)**:
+2. **Automated Live Demonstration (Runs everything without typing)**:
    ```cmd
-   build_and_run.bat --demo
+   .\build_and_run.bat --demo
    ```
-3. **Execute Automated Test Suite**:
+3. **Run All Unit Tests**:
    ```cmd
-   run_tests.bat
-   ```
-
-### Option B: Manual Command Line Execution
-1. Create build directory:
-   ```cmd
-   mkdir bin
-   ```
-2. Compile all source files:
-   ```cmd
-   javac -d bin src/com/vityarthi/smartcampus/exception/*.java src/com/vityarthi/smartcampus/model/*.java src/com/vityarthi/smartcampus/util/*.java src/com/vityarthi/smartcampus/concurrency/*.java src/com/vityarthi/smartcampus/repository/*.java src/com/vityarthi/smartcampus/service/*.java src/com/vityarthi/smartcampus/test/*.java src/com/vityarthi/smartcampus/Main.java
-   ```
-3. Run the interactive console application:
-   ```cmd
-   java -cp bin com.vityarthi.smartcampus.Main
-   ```
-4. Run the automated demo:
-   ```cmd
-   java -cp bin com.vityarthi.smartcampus.Main --demo
+   .\run_tests.bat
    ```
 
----
-
-## 6. Instructions for Testing
-
-The system includes a built-in automated test suite (`SystemTestSuite`) with 11 test cases covering core OOP concepts, algorithmic edge cases, and data persistence:
-
-To run tests:
+### Manual Commands
+If you prefer running manual commands from PowerShell / Command Prompt:
 ```cmd
+# 1. Compile all Java files into bin/
+mkdir bin
+javac -d bin (Get-ChildItem -Path src -Recurse -Filter *.java).FullName
+
+# 2. Run the main menu
+java -cp bin com.vityarthi.smartcampus.Main
+
+# 3. Or run the automated demo
+java -cp bin com.vityarthi.smartcampus.Main --demo
+
+# 4. Or run the test suite
 java -cp bin com.vityarthi.smartcampus.test.SystemTestSuite
 ```
 
-### Test Suite Coverage:
-1. `OOP - User Hierarchy & Polymorphism`: Tests abstract methods, specialized attributes, and role resolution.
-2. `OOP - Course Hierarchy & Polymorphic Tuition Fee`: Verifies theory and lab tuition surcharge computations.
-3. `Timetable Slot Clash Detection Logic`: Verifies collision detection for duplicate and compound slot tokens.
-4. `Input Validator Regex Verification`: Validates registration number patterns (`25BAI10611`) and course codes (`CSE2006`).
-5. `Course Registration & Credit Bounds`: Verifies standard registration workflows and credit accumulation.
-6. `Credit Limit Overload Exception Enforcement`: Confirms `CreditLimitExceededException` is thrown when adding beyond max credits.
-7. `Registration Timetable Slot Clash Exception`: Confirms `SlotClashException` is triggered on timetable conflict.
-8. `Waitlist Queue & Automatic FIFO Seat Promotion`: Verifies queue insertion when section is full and automatic promotion upon drop.
-9. `Grading & Dynamic Weighted CGPA Calculation`: Validates weighted grade point math.
-10. `Attendance Tracking & Debarment Alert (<75%)`: Validates threshold computation and warning flags.
-11. `File I/O Persistence & Reload Engine`: Validates CSV serialization and deserialization across application reboots.
-
 ---
 
-## 7. Sample System Output / Demonstration
+## 🧪 Testing & Validation
+The project includes a built-in test runner (`SystemTestSuite`) with 11 automated test cases:
 
 ```
 ========================================================================
@@ -195,9 +153,9 @@ Candidate: YATHAM JATHINDRA REDDY | Reg No: 25BAI10611 | Course: CSE2006
 
 ---
 
-## 8. Author & Academic Metadata
-- **Student Name**: YATHAM JATHINDRA REDDY
+## 👤 Author
+- **Name**: YATHAM JATHINDRA REDDY
 - **Registration Number**: 25BAI10611
-- **Program**: B.Tech Artificial Intelligence & Machine Learning
-- **Course Code**: CSE2006 (Programming in Java)
+- **Course**: CSE2006 (Programming in Java)
 - **Institution**: Vellore Institute of Technology (VIT Bhopal)
+- **Year**: 2025–2026

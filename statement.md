@@ -1,54 +1,72 @@
 # Project Statement: SmartCampus 360
 
+**Course**: CSE2006 - Programming in Java  
+**Student**: YATHAM JATHINDRA REDDY  
+**Registration No**: 25BAI10611  
+**Institution**: Vellore Institute of Technology (VIT Bhopal)  
+
+---
+
 ## 1. Problem Statement
-In contemporary higher education institutions, academic operations such as course registration, timetable scheduling, seat allocation, prerequisite verification, and attendance tracking are frequently fragmented across disparate, monolithic web portals. During peak registration intervals (such as the Fully Flexible Credit System - FFCS registration cycles at universities like VIT), conventional systems suffer from concurrency bottlenecks, lack real-time slot conflict resolution, and fail to provide transparent, automated waitlist handling when courses reach capacity.
+Every semester at VIT, course registration takes place through the Fully Flexible Credit System (FFCS). During registration, thousands of students log in at the same time to choose their theory and lab courses, select faculty members, and fit everything into a weekly timetable of slots (such as A1, B1, C1, L1+L2, etc.).
 
-Furthermore, students often lack an integrated tool to monitor credit limits, detect timetable collisions in advance, simulate GPA outcomes based on course credit weightings, and track attendance thresholds to prevent debarment. Faculty and administrators also require streamlined, thread-safe mechanisms to manage section limits, publish attendance updates, and process student promotions from waitlists automatically without manual interventions.
+However, during this fast-paced process, students and faculty face several practical issues:
+1. **Timetable Slot Clashes:** It is easy for a student to accidentally pick a theory or lab course that conflicts with an already registered class on the same day and time (for example, registering for two subjects in Slot A1, or a lab session overlapping with a lecture).
+2. **Course Section Limits & Lack of Automatic Waitlists:** High-demand courses reach maximum capacity in minutes. When a course is full, students have no transparent way to know their queue position. More importantly, if an enrolled student drops the course later, there is no automatic system to immediately promote the next waiting student.
+3. **Credit Overload:** Students have a maximum limit of 27 credits per semester. Manually keeping track of theory and lab credits can lead to registration errors.
+4. **Attendance Debarment Risk:** At VIT, maintaining at least 75% attendance in every course is mandatory to avoid being debarred from the Final Assessment Test (FAT). Students often realize their attendance is short only when it is too late.
+5. **Scattered Academic Tracking:** Calculating semester CGPA weighted by course credits is usually done on separate calculators rather than directly inside the course portal.
 
-**SmartCampus 360** resolves these systemic bottlenecks by delivering an integrated, high-performance Java-based Academic & Resource Allocation System. Built upon object-oriented design principles, robust data structures, and multithreaded queue processing, SmartCampus 360 provides deterministic slot collision checking, automated FIFO waitlist promotion, polymorphic tuition and credit tracking, and persistent state management.
+**SmartCampus 360** is a console-based academic management system designed to solve these exact problems. It provides automated timetable clash detection, fair FIFO waitlist handling with instant promotion on course drops, credit limit checks, real-time attendance alerts, and live CGPA calculation.
 
 ---
 
 ## 2. Scope of the Project
-The scope of **SmartCampus 360** encompasses the academic course lifecycle and resource scheduling operations for higher education campuses:
-- **Scope Inclusions:**
-  - **Academic Structure Modeling:** Modeling diverse course formats (Theory lectures, Tutorials, Laboratory sessions with specialized computing environments).
-  - **Timetable Conflict Resolution:** Algorithmic verification of slot overlaps (e.g., standard VIT slots such as A1, B1, C1, L1+L2) ensuring students cannot register for overlapping time commitments.
-  - **Credit Regulation:** Dynamic verification of maximum credit limits (e.g., 27 credits per semester) preventing student credit overload.
-  - **Automated Waitlisting Engine:** Real-time FIFO queuing when course sections reach capacity, with automated seat promotion upon course drop events.
-  - **Academic Progress & Grading:** Letter grade assignment (S, A, B, C, D, E, F) and dynamic credit-weighted CGPA computation.
-  - **Attendance Auditing:** Real-time tracking of lecture attendance with automated flagging of students dropping below the mandatory 75% threshold.
-  - **Persistence & Threaded Notifications:** Persistent file-backed storage (CSV) and background multithreaded worker dispatching notifications asynchronously.
-- **Scope Boundaries (Out of Scope for CLI Edition):**
-  - Third-party bank payment gateway integration (mocked via polymorphic tuition fee calculation).
-  - Physical biometric hardware integration (attendance recorded via faculty console).
+The project covers the core academic lifecycle of university students and faculty during a semester:
+
+### What the project does:
+- **User Roles:** Distinct functionality for Students, Faculty members, and Administrators.
+- **Course Modeling:** Handles both Theory courses (lectures + tutorials) and Laboratory courses (practical sessions + lab software environments), with different credit structures and fee calculations.
+- **Slot Collision Detection:** Checks both standard lecture slots (A1, B1, C1, etc.) and composite lab slots (like L1+L2) to prevent any schedule overlap.
+- **Credit Limit Checks:** Restricts enrollment to a maximum of 27 credits per semester.
+- **Waitlist Queue with Auto-Promotion:** When a course is full, students are placed in a First-Come, First-Served (FIFO) waitlist. When an enrolled student drops the course, the next student on the waitlist is automatically promoted and notified.
+- **Attendance Monitoring:** Faculty can mark attendance per session; the system calculates the percentage and automatically flags students below the 75% requirement.
+- **Grading & Dynamic CGPA:** Faculty can assign 10-point scale grades (S, A, B, C, D, E, F), and the student's cumulative GPA is updated dynamically based on credit weights.
+- **Persistent Storage:** All student data, course catalogs, and enrollment records are saved to CSV files so state is preserved across restarts.
+- **Background Notification Worker:** A multithreaded background worker simulates asynchronous alerts for waitlist promotions and registration updates.
+
+### What is outside the scope:
+- Real payment gateway integration (fees are computed polymorphically, but actual card/UPI transactions are not processed).
+- Hardware biometric attendance integration (attendance is updated digitally by faculty).
 
 ---
 
 ## 3. Target Users
 1. **Students (Primary Users):**
-   - Browse active academic course catalogs with real-time seat availability.
-   - Register for theory and lab courses with automated timetable clash and credit validation.
-   - Monitor waitlist status and receive automated seat allocations.
-   - View detailed academic transcripts, credit progress, and live CGPA.
-   - Monitor attendance percentages to avert 75% debarment.
-2. **Faculty Members / Instructors:**
-   - Inspect rosters of enrolled students in assigned course sections.
-   - Record lecture attendance on a per-session basis.
-   - Enter semester grades and evaluate student academic performance.
-3. **Academic Administrators / Registrars:**
-   - Administer the university course catalog (create courses, assign slots, define seat quotas).
-   - Review campus-wide seat occupancy and waitlist metrics.
-   - Audit attendance debarment warning lists across all departments.
+   - Browse the course catalog with live seat availability.
+   - Register for theory and lab courses with automatic clash and credit checking.
+   - Join waitlists when courses are full and get promoted automatically.
+   - View their official academic transcript, current CGPA, and attendance status.
+   - Check tuition fee breakdowns for enrolled subjects.
+
+2. **Faculty Members:**
+   - View rosters of students enrolled in their assigned sections.
+   - Mark daily lecture/lab attendance.
+   - Enter final grades for students.
+
+3. **Academic Administrators:**
+   - Add new courses, configure time slots, and set seat quotas.
+   - View campus-wide course occupancy and waitlist sizes.
+   - Monitor attendance debarment warning lists to take timely academic interventions.
 
 ---
 
 ## 4. High-Level Features
-- **Role-Based Access Control (RBAC):** Secure authentication architecture supporting distinct permissions for Student, Faculty, and Admin roles.
-- **FFCS Timetable Collision Detector:** Deterministic slot clash algorithm verifying compound and atomic slot schedules.
-- **Polymorphic Course & Fee Architecture:** Extensible inheritance hierarchy differentiating Theory and Laboratory courses with dynamic surcharge calculations.
-- **Fair FIFO Waitlist Queue & Auto-Promotion Engine:** Thread-safe seat deallocation trigger promoting the earliest waitlisted student immediately when a vacancy emerges.
-- **Dynamic 10-Point CGPA Calculator:** Credit-weighted formula calculating grade points across completed courses in real time.
-- **Attendance Compliance Engine:** Per-course percentage tracking enforcing the mandatory 75% attendance policy.
-- **Background Multithreaded Event Dispatcher:** Non-blocking daemon worker simulating asynchronous message queuing and system alerts.
-- **Dual Mode Interface:** Interactive CLI console menu alongside an automated, self-executing demonstration mode (`--demo`) for instant evaluation.
+- **Role-Based Login System:** Secure access with separate dashboards for Student, Faculty, and Admin.
+- **Smart Slot Clash Detector:** Instant validation preventing any timetable overlaps.
+- **Fair Waitlist Engine:** Uses a FIFO queue to give students seats in the exact order they joined when vacancies open.
+- **Polymorphic Course System:** Object-oriented design separating theory and lab courses with specialized attributes and fee calculations.
+- **Live CGPA Calculator:** Dynamically recalculates weighted GPA whenever a new grade is entered.
+- **Attendance Compliance Alert:** Warns students and faculty as soon as attendance drops below 75%.
+- **Background Concurrency:** Uses a Java worker thread with a `BlockingQueue` to handle notifications in the background.
+- **Built-in Automated Demo:** Includes a one-command `--demo` flag that walks through all features step-by-step for easy evaluation.

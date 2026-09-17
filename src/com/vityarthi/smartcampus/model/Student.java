@@ -5,8 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Concrete subclass representing a University Student.
- * Demonstrates Inheritance and Domain Encapsulation.
+ * Represents a student enrolled in the university with semester credits, CGPA, and registered courses.
  */
 public class Student extends User {
     private final String regNo;

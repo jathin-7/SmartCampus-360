@@ -3,8 +3,7 @@ package com.vityarthi.smartcampus.model;
 import java.util.List;
 
 /**
- * Concrete class for Laboratory-based courses.
- * Demonstrates Inheritance, Method Overriding, and Specialized Resource Management.
+ * A practical laboratory subject with specialized software environments and extra lab fees.
  */
 public class LabCourse extends Course {
     private final int practicalHours;

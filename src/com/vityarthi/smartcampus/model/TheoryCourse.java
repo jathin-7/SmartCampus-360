@@ -3,8 +3,7 @@ package com.vityarthi.smartcampus.model;
 import java.util.List;
 
 /**
- * Concrete class for Theory-based courses.
- * Demonstrates Inheritance and Polymorphic method implementation.
+ * A standard theory subject comprising lecture and tutorial hours.
  */
 public class TheoryCourse extends Course {
     private final int lectureHours;

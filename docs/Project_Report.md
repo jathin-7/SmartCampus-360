@@ -1,99 +1,98 @@
 # Project Report: SmartCampus 360
-### Integrated Academic Resource & Course Allocation System
+## Integrated Academic Resource & Course Allocation System
+
 **Course Code**: CSE2006 — Programming in Java  
-**Academic Year**: 2025–2026 | Flipped Learning Evaluation  
+**Academic Term**: Fall 2025–2026 | Flipped Learning Project Evaluation  
 
 ---
 
-## 1. Cover Page Details
+## 1. Cover Page
 - **Project Title**: SmartCampus 360 - Integrated Academic & Resource Allocation System
 - **Student Name**: YATHAM JATHINDRA REDDY
 - **Registration Number**: 25BAI10611
-- **Program of Study**: B.Tech in Computer Science and Engineering (Specialization in AI & ML)
-- **Course Code & Title**: CSE2006 — Programming in Java
+- **Degree / Branch**: B.Tech Computer Science and Engineering (AI & ML)
+- **Course Code**: CSE2006
+- **Course Title**: Programming in Java
 - **Institution**: Vellore Institute of Technology (VIT Bhopal)
-- **Submission Date**: September 16, 2026
-- **Faculty Reviewer**: Department of Computer Science and Engineering
+- **Date of Submission**: September 16, 2026
 
 ---
 
 ## 2. Introduction
-Higher educational institutions worldwide operate dynamic course registration frameworks allowing students substantial flexibility in choosing subjects, time slots, and professors (e.g., the Fully Flexible Credit System - FFCS). However, managing the multi-faceted constraints inherent in higher education operations requires robust, scalable, and deterministic software engineering.
+In university life, course registration is one of the most critical events every semester. At VIT, we use the Fully Flexible Credit System (FFCS), which gives students the freedom to choose their preferred subjects, pick faculty members, and select timetable slots that match their schedule.
 
-**SmartCampus 360** is a comprehensive academic operations system developed natively in Java 21. It addresses complex domain challenges including:
-- Real-time timetable slot clash detection
-- Semester credit overload enforcement
-- Capacity-constrained course section enrollment with automated FIFO waitlists
-- Dynamic 10-point CGPA recalculation based on course credit weightings
-- Continuous attendance monitoring enforcing the mandatory 75% exam eligibility threshold
-- Multithreaded background event dispatching for instant vacancy notifications
+While FFCS gives great flexibility, it also introduces several practical headaches:
+- Students can accidentally pick classes with overlapping timetable slots.
+- Popular courses and good faculty sections fill up in seconds. If a section is full, students have to manually check again and again in case someone drops out.
+- Keeping track of the 27-credit semester ceiling across both theory and lab courses can be confusing.
+- Staying above the mandatory 75% attendance threshold requires constant attention so students don't get debarred from final exams (FAT).
+- Calculating how different course grades impact semester CGPA requires manual calculations.
 
-The project demonstrates key Object-Oriented Programming (OOP) concepts, the Java Collections Framework, Custom Exception Architectures, Concurrency Controls, and File I/O Persistence.
+To solve these exact challenges, I built **SmartCampus 360** using Java. It is a complete, modular console application designed using Object-Oriented Programming (OOP) concepts learned throughout the CSE2006 course. It handles timetable conflict checks, automatic waitlisting and seat promotion, credit checks, attendance tracking, dynamic CGPA calculation, and file-based data persistence.
 
 ---
 
 ## 3. Problem Statement
-Traditional university registration portals frequently encounter critical performance and design bottlenecks during course registration drives:
-1. **Timetable Slot Conflicts**: Students unknowingly register for lecture or laboratory hours that physically overlap, causing scheduling deadlocks.
-2. **Lack of Automated Waitlist Promotion**: When popular sections fill up, students must continually refresh portals manually. There is no automated, thread-safe queuing mechanism that immediately reassigns seats upon drops.
-3. **Credit Overload**: Without rigorous boundary checks, students may exceed academic credit limits, causing regulatory and administrative complications.
-4. **Attendance Debarment Blindspots**: Students often fall below the mandatory 75% attendance criterion without timely warnings.
-5. **Decoupled Academic Metrics**: Tuition fee calculations, grade point averages, and attendance records are frequently handled in separate systems rather than a cohesive domain model.
+During peak course registration, students and academic staff deal with multiple friction points:
 
-SmartCampus 360 solves these issues by providing a unified, thread-safe system with deterministic validation rules.
+1. **Timetable Slot Overlaps:** Students often register for multiple courses without realizing that two slots (like A1 and another course on A1, or a 2-hour lab slot like L1+L2 overlapping with an afternoon lecture) happen at the exact same time. The system should automatically prevent this.
+2. **Lack of Automated Waitlist Promotion:** When a course reaches maximum capacity, students are turned away. If an enrolled student later changes their mind and drops the course, there is no automatic system to notify or promote the next waiting student.
+3. **Credit Overload Risk:** University guidelines set a strict cap of 27 credits per semester. If a system does not validate credit totals before finalizing registration, students risk having their registrations cancelled later.
+4. **Attendance Monitoring:** Attendance is often viewed on a separate portal weeks after classes begin. Without real-time calculation and clear warning alerts, students unknowingly drop below 75% and risk debarment.
+5. **Separation of Academic Metrics:** Fee calculations, attendance records, and grade point averages are frequently stored in disconnected places rather than in one unified system.
 
 ---
 
 ## 4. Functional Requirements
 
-### Module 1: Authentication & Role-Based Access Control (RBAC)
-- **FR-1.1**: Support distinct user roles: `Student`, `Faculty`, and `Admin`.
-- **FR-1.2**: Secure authentication validating registration numbers, employee IDs, and password credentials.
-- **FR-1.3**: Provide role-specific dashboards ensuring students, faculty, and administrators access only authorized operations.
+### Module 1: User Management & Authentication (RBAC)
+- **FR-1.1**: Provide support for three distinct user roles: `Student`, `Faculty`, and `Administrator`.
+- **FR-1.2**: Secure user authentication using registration number / employee ID and password (supporting SHA-256 password hashing).
+- **FR-1.3**: Provide role-specific menus so each user only sees actions relevant to them.
 
-### Module 2: Course Catalog & Slot Administration
-- **FR-2.1**: Support diverse course typologies including Theory Courses and Laboratory Courses.
-- **FR-2.2**: Maintain academic metadata including course code, title, credits, maximum seats, and instructor assignment.
-- **FR-2.3**: Map courses to standard timetable slots (e.g., `A1`, `B1`, `C1`, compound lab slots `L1+L2`).
+### Module 2: Course Catalog Management
+- **FR-2.1**: Support both Theory courses (with lecture and tutorial hours) and Laboratory courses (with lab hours and software requirements).
+- **FR-2.2**: Maintain course metadata including course code (e.g. `CSE2006`), title, credit count, assigned faculty, max seats, and time slots.
+- **FR-2.3**: Allow administrators to add new courses or view enrollment statistics.
 
-### Module 3: Course Registration & Conflict Resolution Engine
-- **FR-3.1**: Validate prerequisite completion before permitting course enrollment.
-- **FR-3.2**: Enforce maximum semester credit limit (27 credits) and reject over-enrollment.
-- **FR-3.3**: Perform algorithmic slot clash detection against a student's active schedule before finalizing registration.
-- **FR-3.4**: Enforce section capacity limits. Automatically place excess registrants into a FIFO waitlist queue.
-- **FR-3.5**: Handle course drops by immediately promoting the head of the waitlist queue to enrolled status.
+### Module 3: Registration & Timetable Conflict Resolution Engine
+- **FR-3.1**: Check prerequisites before allowing enrollment in an advanced course.
+- **FR-3.2**: Enforce the 27-credit semester cap, rejecting any course that pushes a student over the limit.
+- **FR-3.3**: Perform automated timetable slot clash detection against the student's existing schedule.
+- **FR-3.4**: If a course section is full, automatically place the student in a FIFO waitlist queue.
+- **FR-3.5**: When any student drops an enrolled course, automatically promote the first student in the waitlist queue to enrolled status.
 
-### Module 4: Academic Progress, Grading & Attendance Tracking
-- **FR-4.1**: Enable faculty members to record session attendance (present/absent) for enrolled students.
-- **FR-4.2**: Automatically compute cumulative attendance percentage and trigger debarment warnings if attendance drops below 75%.
-- **FR-4.3**: Allow faculty to assign official letter grades (`S`, `A`, `B`, `C`, `D`, `E`, `F`).
-- **FR-4.4**: Dynamically compute cumulative GPA (CGPA) weighted by course credits.
+### Module 4: Attendance Tracking & Grading
+- **FR-4.1**: Allow faculty members to record attendance (Present/Absent) per session for their courses.
+- **FR-4.2**: Calculate the running attendance percentage and generate a debarment warning list for anyone below 75%.
+- **FR-4.3**: Allow faculty to enter letter grades (`S`, `A`, `B`, `C`, `D`, `E`, `F`).
+- **FR-4.4**: Dynamically recalculate the student's CGPA based on course credit weightings.
 
-### Module 5: Reporting & Financial Analytics
-- **FR-5.1**: Generate official academic transcripts summarizing enrolled subjects, attendance, grades, and CGPA.
-- **FR-5.2**: Provide administrators with campus-wide course occupancy and waitlist summaries.
-- **FR-5.3**: Calculate semester tuition fees using polymorphic fee computation models.
+### Module 5: Transcripts & Fee Reports
+- **FR-5.1**: Generate a clean academic transcript showing enrolled courses, slots, attendance percentages, grades, and CGPA.
+- **FR-5.2**: Provide course occupancy reports showing enrolled counts, max seats, and waitlist sizes.
+- **FR-5.3**: Compute semester tuition fees polymorphically (with lab courses including extra lab infrastructure fees).
 
 ---
 
 ## 5. Non-Functional Requirements
-1. **Performance**: Algorithmic slot collision checks and waitlist queue transactions operate in sub-millisecond execution time (\(O(1)\) to \(O(N)\) where \(N\) is active enrollments).
-2. **Security**: Role-Based Access Control (RBAC) prevents privilege escalation. Password hashing (SHA-256) is integrated into user credential validation.
-3. **Usability**: Interactive, clear terminal interface with clean tabular layouts, alongside an automated zero-input `--demo` mode.
-4. **Reliability & Data Integrity**: File-backed persistence ensures state survival across application restarts. In-memory data structures are guarded against corruption.
-5. **Concurrency & Thread Safety**: Multithreaded background worker uses `BlockingQueue` and atomic flags to safely manage asynchronous message dispatching.
-6. **Maintainability**: Clean architecture adhering to Single Responsibility and Separation of Concerns across `model`, `service`, `repository`, `exception`, and `concurrency` packages.
+1. **Performance**: All timetable checks and student searches run instantly in memory using Java Collections (`ConcurrentHashMap`), giving sub-millisecond responses.
+2. **Security**: Role-Based Access Control ensures students cannot modify grades or course catalogs. Passwords are encrypted with SHA-256 hashing.
+3. **Usability**: The application provides an interactive menu with clean formatted tables and clear status messages. It also includes an automated `--demo` mode that runs through all features without manual typing.
+4. **Reliability & Data Persistence**: Data is automatically saved to CSV files in the `data/` folder, ensuring records are not lost when the application is closed.
+5. **Concurrency & Thread Safety**: Critical seat booking operations use synchronization to prevent race conditions. A background daemon thread manages asynchronous notifications using a `BlockingQueue`.
+6. **Maintainability**: The codebase is cleanly structured into standard Java packages (`model`, `service`, `repository`, `exception`, `concurrency`, `util`, `test`).
 
 ---
 
 ## 6. System Architecture
 
-SmartCampus 360 is architected according to a Multi-Layered Service-Oriented Pattern:
+The project is designed using a clean, layered architecture:
 
 ```
 +-------------------------------------------------------------------------+
 |                           PRESENTATION LAYER                            |
-|             com.vityarthi.smartcampus.Main (CLI & Demo Runner)           |
+|             com.vityarthi.smartcampus.Main (CLI & Demo Mode)            |
 +-------------------------------------------------------------------------+
                                     |
                                     v
@@ -133,100 +132,102 @@ SmartCampus 360 is architected according to a Multi-Layered Service-Oriented Pat
           |                               |                               |
           v                               v                               v
      [STUDENT]                        [FACULTY]                        [ADMIN]
-  - Browse Course Catalog          - View Enrolled Students        - Add / Modify Courses
-  - Register Course (FFCS)         - Mark Lecture Attendance       - View Seat Occupancy
-  - Drop Course                    - Assign Course Grades          - View Attendance Debarments
+  - View Course Catalog            - View Enrolled Students        - Add New Courses
+  - Register Courses (FFCS)        - Mark Lecture Attendance       - View Seat Occupancy
+  - Drop Courses                   - Enter Student Grades          - Audit Attendance Warnings
   - View Transcript & CGPA
-  - Check Tuition Fees
+  - View Tuition Fee Breakdown
 ```
 
-### 7.2 Process Flow / Workflow Diagram (Course Registration)
+### 7.2 Registration Process Flow / Workflow Diagram
 ```
-[Start Registration]
-        |
-        v
-[Check Student Exists & Active]
-        |
-        v
-[Validate Prerequisites Passed?] ---> [NO] ---> Throw CampusException
-        | [YES]
-        v
-[Credits + Course <= Max Credits (27)?] ---> [NO] ---> Throw CreditLimitExceededException
-        | [YES]
-        v
-[Timetable Slot Clash Detected?] ---> [YES] ---> Throw SlotClashException
-        | [NO]
-        v
+[Student Chooses Course]
+           |
+           v
+[Check Prerequisites Passed?] ------(NO)----> [Display Prerequisite Error]
+           | (YES)
+           v
+[Current Credits + Course <= 27?] --(NO)----> [Throw CreditLimitExceededException]
+           | (YES)
+           v
+[Timetable Slot Clash Detected?] ---(YES)---> [Throw SlotClashException]
+           | (NO)
+           v
 [Is Course Section Full?]
-     /        \
- [NO]          [YES]
-  |              |
-  v              v
-[Set Status:  [Enqueue to Waitlist]
- ENROLLED]    [Set Status: WAITLISTED]
-  |              |
-  v              v
-[Update Student Credits & Persist]
-        |
-        v
-[Dispatch Background Notification]
+      /         \
+  (NO)           (YES)
+   |               |
+   v               v
+[Set Status:     [Place in Waitlist Queue]
+  ENROLLED]      [Set Status: WAITLISTED]
+   |               |
+   v               v
+[Update Credits & Save to CSV]
+           |
+           v
+[Send Background Notification]
 ```
 
-### 7.3 Sequence Diagram (Registration & Waitlist Promotion)
+### 7.3 Sequence Diagram (Registration & Auto-Promotion on Drop)
 ```
-Student              EnrollmentService            Course              NotificationWorker
-   |                         |                       |                         |
-   |--- registerCourse() --->|                       |                         |
-   |                         |--- isFull()? -------->|                         |
-   |                         |<-- true (Full) -------|                         |
-   |                         |--- enrollStudent() -->| (added to waitlist)     |
-   |                         |------------------------------------------------>| dispatch("Waitlisted")
-   |<-- Return WAITLISTED ---|                       |                         |
-   |                         |                       |                         |
-   | (Another Student Drops) |                       |                         |
-   |                         |--- dropCourse() ----->|                         |
-   |                         |--- removeStudent() -->|                         |
-   |                         |<-- promotedStudentId -| (promoted from queue)   |
-   |                         |------------------------------------------------>| dispatch("Seat Promoted")
+Student A                EnrollmentService             Course Section          Student B (Waitlist)
+    |                            |                            |                         |
+    |---- registerCourse() ----->|                            |                         |
+    |                            |---- isFull()? ------------>|                         |
+    |                            |<--- false (Seat Available)-|                         |
+    |                            |---- enrollStudent() ------>| (Seat booked)           |
+    |<--- Status: ENROLLED ------|                            |                         |
+    |                            |                            |                         |
+    |                            |                            | (Attempts to register)  |
+    |                            |<--- registerCourse() --------------------------------|
+    |                            |---- isFull()? ------------>|                         |
+    |                            |<--- true (Course Full) ----|                         |
+    |                            |---- enqueueWaitlist() ---->|                         |
+    |                            |---------------- Status: WAITLISTED ----------------->|
+    |                            |                            |                         |
+    | (Student A drops course)   |                            |                         |
+    |---- dropCourse() --------->|                            |                         |
+    |                            |---- removeStudent() ------>|                         |
+    |                            |<--- promotedStudentId -----| (Student B popped)      |
+    |                            |---------------- Promoted to ENROLLED --------------->|
 ```
 
 ### 7.4 Class / Component Diagram
 ```
-                     +------------------------+
-                     |      <<abstract>>      |
-                     |          User          |
-                     +------------------------+
-                     | - userId: String       |
-                     | - fullName: String     |
-                     | - email: String        |
-                     | - role: SystemRole     |
-                     +------------------------+
-                                 ^
-         +-----------------------+-----------------------+
-         |                       |                       |
-+-----------------+     +-----------------+     +-----------------+
-|     Student     |     |     Faculty     |     |      Admin      |
-+-----------------+     +-----------------+     +-----------------+
-| - regNo: String |     | - empId: String |     | - dept: String  |
-| - credits: int  |     | - dept: String  |     | - level: int    |
-| - cgpa: double  |     | - cabin: String |     +-----------------+
-+-----------------+     +-----------------+
+                   +------------------------+
+                   |      <<abstract>>      |
+                   |          User          |
+                   +------------------------+
+                   | - userId: String       |
+                   | - fullName: String     |
+                   | - email: String        |
+                   | - role: SystemRole     |
+                   +------------------------+
+                               ^
+       +-----------------------+-----------------------+
+       |                       |                       |
++---------------+       +---------------+       +---------------+
+|    Student    |       |    Faculty    |       |     Admin     |
++---------------+       +---------------+       +---------------+
+| - regNo       |       | - empId       |       | - department  |
+| - credits     |       | - department  |       | - level       |
+| - cgpa        |       | - cabin       |       +---------------+
++---------------+       +---------------+
 
-                     +------------------------+
-                     |      <<abstract>>      |
-                     |         Course         |
-                     +------------------------+
-                     | - courseCode: String   |
-                     | - courseTitle: String  |
-                     | - credits: int         |
-                     | - slot: Slot           |
-                     | - maxSeats: int        |
-                     +------------------------+
-                     | + calculateTuitionFee()|
-                     +------------------------+
-                                 ^
-         +-----------------------+-----------------------+
-         |                                               |
+                   +------------------------+
+                   |      <<abstract>>      |
+                   |         Course         |
+                   +------------------------+
+                   | - courseCode: String   |
+                   | - credits: int         |
+                   | - slot: Slot           |
+                   | - maxSeats: int        |
+                   +------------------------+
+                   | + calculateTuitionFee()|
+                   +------------------------+
+                               ^
+       +-----------------------+-----------------------+
+       |                                               |
 +--------------------------+               +--------------------------+
 |       TheoryCourse       |               |        LabCourse         |
 +--------------------------+               +--------------------------+
@@ -238,7 +239,7 @@ Student              EnrollmentService            Course              Notificati
                                            +--------------------------+
 ```
 
-### 7.5 Database / Storage ER Diagram
+### 7.5 Storage / ER Diagram
 ```
 +-------------------+           +-----------------------+           +-------------------+
 |      USERS        | 1       * |      ENROLLMENTS      | *       1 |      COURSES      |
@@ -256,26 +257,34 @@ Student              EnrollmentService            Course              Notificati
 ---
 
 ## 8. Design Decisions & Rationale
-1. **Separation of Domain Entities and Services**: Isolating business logic into dedicated services (`EnrollmentService`, `CourseManagementService`) guarantees adherence to Single Responsibility (SRP) and enables modular unit testing.
-2. **Polymorphic Course Pricing**: Defining `calculateTuitionFee()` as an abstract method on `Course` allows `TheoryCourse` and `LabCourse` to encapsulate their pricing policies cleanly without fragile `if-else` type-checking.
-3. **Decoupled File Persistence**: Implementing the `DataStore` interface allows in-memory collections (`ConcurrentHashMap`) to serve sub-millisecond lookups while asynchronously synchronizing state to disk CSV files.
-4. **Daemon Notification Thread**: Utilizing a dedicated background `NotificationWorker` thread with a `LinkedBlockingQueue` ensures high-latency notification operations never block core student registration workflows.
-5. **Domain-Specific Exception Hierarchy**: Creating a custom exception hierarchy extending `CampusException` (`SlotClashException`, `CreditLimitExceededException`, `CourseFullException`) allows precise error reporting and graceful client recovery.
+When planning this project, I made several deliberate architectural decisions:
+
+1. **Inheritance for Courses (Theory vs Lab):** At VIT, theory and lab courses are handled differently. A lab course has practical sessions, software tools, and extra lab consumables. Rather than using messy boolean flags like `isLab`, I created an abstract `Course` class and extended it into `TheoryCourse` and `LabCourse`. This made polymorphic fee calculation clean and natural.
+2. **Custom Domain Exceptions:** When something goes wrong (e.g. a timetable collision or credit overload), throwing generic `RuntimeException` or printing an error message in the middle of business logic makes code messy. Creating custom exceptions (`SlotClashException`, `CreditLimitExceededException`, `CourseFullException`) allows the service layer to signal errors cleanly, which the CLI catches and presents nicely to the user.
+3. **FIFO Queue for Waitlists:** Fairness is essential in course registration. I used Java's `LinkedList` implementing the `Queue` interface so waitlisted students are queued strictly in the order they applied.
+4. **File-Based CSV Storage:** Instead of requiring a heavy external database (like MySQL or Oracle) that requires complex credentials and configuration, I built a CSV storage manager using Java NIO.2. This ensures the project is completely portable and can be downloaded and run immediately on any machine with JDK 21.
+5. **Background Concurrency:** Sending notifications or writing audit logs shouldn't freeze the user's registration screen. I created a `NotificationWorker` daemon thread that processes tasks asynchronously using a thread-safe `BlockingQueue`.
 
 ---
 
 ## 9. Implementation Details
-The system was developed strictly with standard Java 21 features:
-- **Collections Framework**: Employs `LinkedHashSet` for deterministic enrollment rosters, `ConcurrentHashMap` for thread-safe caching, `LinkedList` for FIFO waitlist queuing, and `List` for immutable prerequisite definitions.
-- **Java Streams & Lambdas**: Used extensively in query pipelines to filter active enrollments, search catalog listings, and calculate grade point aggregates.
-- **Atomic Concurrency Controls**: Utilizes `AtomicBoolean` and `AtomicInteger` for thread synchronization and collision-free ID generation.
-- **Java File I/O & NIO.2**: Employs `java.nio.file.Path`, `Files.newBufferedReader()`, and `BufferedWriter` to handle CSV serialization.
+The application is built using standard Java 21 features:
+- **OOP Principles**:
+  - **Encapsulation**: All fields in models are private, accessed through getters, with collections protected by `Collections.unmodifiableList()`.
+  - **Abstraction**: Base classes define abstract methods (`calculateTuitionFee()`, `getRoleSpecificDetails()`) implemented by child classes.
+  - **Polymorphism**: The analytics service calculates tuition fees dynamically by calling `course.calculateTuitionFee()` without checking concrete types.
+- **Collections Framework**:
+  - `ConcurrentHashMap` for thread-safe in-memory caching of users, courses, and enrollments.
+  - `LinkedHashSet` to maintain student enrollment order.
+  - `LinkedList` as a FIFO queue for waitlisting.
+- **Regex Validation**: `InputValidator` uses regular expressions to validate VIT registration numbers (e.g., `25BAI10611`) and course codes (e.g., `CSE2006`).
+- **File I/O**: `StorageManager` uses `BufferedReader` and `BufferedWriter` to read and write CSV files, handling commas, headers, and type conversions cleanly.
 
 ---
 
-## 10. Screenshots / Results
+## 10. Execution Results & Screenshots
 
-### 10.1 Automated Validation Test Execution
+### 10.1 Automated Validation Test Suite Output
 ```
 ========================================================================
              SMARTCAMPUS - AUTOMATED VALIDATION TEST SUITE            
@@ -299,7 +308,7 @@ Candidate: YATHAM JATHINDRA REDDY | Reg No: 25BAI10611 | Course: CSE2006
 ========================================================================
 ```
 
-### 10.2 Academic Transcript Output
+### 10.2 Student Academic Transcript Output
 ```
 ========================================================================
                    VIT SMARTCAMPUS ACADEMIC TRANSCRIPT                  
@@ -323,39 +332,45 @@ CSE2001    Data Structures and Algorithms   4      B1       66.7%      S
 ---
 
 ## 11. Testing Approach
-Testing was executed through two complementary layers:
-1. **Automated Unit Testing (`SystemTestSuite`)**: Eleven distinct unit tests validating polymorphism, input regular expressions, slot collision boundary scenarios, credit overload exceptions, queue promotions, and file serialization.
-2. **Integration & Flow Testing (`Main --demo`)**: An automated end-to-end demonstration running through authentication, catalog querying, slot clash triggering, waitlist handling, attendance logging, grade submission, fee computation, and transcript generation.
+To verify that every part of the system works correctly, I used two levels of testing:
+1. **Automated Unit Tests (`SystemTestSuite.java`)**:
+   - Written with a custom `TestCase` harness that checks conditions and throws clear assertion errors if anything fails.
+   - Tested: User inheritance, polymorphic fee calculation, slot clash logic, regex validation, credit limit overflow, waitlist FIFO promotion, CGPA math, attendance warning triggers, and file saving/loading.
+2. **Automated End-to-End Walkthrough (`Main --demo`)**:
+   - A demonstration flag that executes a complete real-world scenario from start to finish: logging in as student `25BAI10611`, checking courses, enrolling, attempting a clash, filling a section to trigger the waitlist, dropping to promote the next student, entering grades, and printing the transcript.
 
 ---
 
-## 12. Challenges Faced & Solutions
-- **Compound Slot Overlaps**: Laboratory sessions occupy multi-period blocks (e.g., `L1+L2`). Comparing single string codes was insufficient.
-  - *Solution*: Decomposed compound slot codes into atomic token sets (`L1`, `L2`) and checked set intersections.
-- **Race Conditions in Waitlist Promotion**: Multiple simultaneous drops and adds could cause inconsistent seat counts.
-  - *Solution*: Synchronized critical registration and drop blocks on course and enrollment objects, leveraging `ConcurrentHashMap` and thread-safe queues.
-- **Dynamic GPA Weighting with Incomplete Courses**: Courses in progress with unassigned grades must not skew CGPA calculations.
-  - *Solution*: Filtered out courses with `Grade.NOT_ASSIGNED` during summation, only dividing by the sum of completed, graded credits.
+## 12. Challenges Faced & How I Solved Them
+1. **Handling Compound Timetable Slots:**
+   - *Problem:* In VIT's timetable, labs occupy compound slots like `L1+L2` or `L31+L32`. A simple string comparison (`slotA.equals(slotB)`) failed when comparing `L1+L2` with a single slot `L1`.
+   - *Solution:* In the `Slot` class, I tokenized slot codes on `+` and stored them in a `Set<String>`. Clash detection now checks whether any atomic token from one slot overlaps with another.
+2. **Preventing Race Conditions During Waitlist Promotion:**
+   - *Problem:* If two students dropped courses at the exact same moment, two waitlisted students could be promoted simultaneously, potentially exceeding maximum seats.
+   - *Solution:* I made the enrollment and drop methods `synchronized` and used `ConcurrentHashMap` for all internal storage maps.
+3. **Dynamic CGPA Calculation with In-Progress Courses:**
+   - *Problem:* In an ongoing semester, some subjects have received grades while others are still in progress (`NOT_ASSIGNED`). Dividing total points by all registered credits unfairly lowered the CGPA.
+   - *Solution:* I updated the CGPA formula to sum only the credits of courses where final grades have been submitted, preventing division by zero or skewed averages.
 
 ---
 
 ## 13. Learnings & Key Takeaways
-- Mastery over core Object-Oriented paradigms (encapsulation, abstraction, polymorphic dispatch).
-- Practical implementation of Java Concurrency utilities (`BlockingQueue`, `AtomicBoolean`, daemon worker threads).
-- Architecting maintainable, multi-tiered systems separating storage, business logic, and presentation.
-- Rigorous exception handling with custom unchecked exceptions reflecting domain business rules.
+- **Real Value of OOP:** Before this project, OOP concepts like abstraction and polymorphism felt theoretical. Building `Course`, `TheoryCourse`, and `LabCourse` with polymorphic fee calculation made me realize how clean and extensible object-oriented code is compared to nested `if-else` statements.
+- **Java Collections in Practice:** Choosing the right data structure matters—using `Set` for fast duplicate checks, `Queue` for fair waitlisting, and `Map` for instant lookups made the system fast and readable.
+- **Thread Safety:** Learning how to use daemon threads, `BlockingQueue`, and `synchronized` blocks showed me how real backend systems handle background tasks safely.
+- **Defensive Programming:** Writing custom exceptions and input validators helped me catch bugs early before they corrupted stored data.
 
 ---
 
 ## 14. Future Enhancements
-- **Spring Boot & RESTful Web APIs**: Transition the service layer to Spring Boot microservices with JWT-based authentication.
-- **Relational Database Migration**: Replace CSV persistence with PostgreSQL via Spring Data JPA and Hibernate.
-- **Web Interface (React / Angular)**: Develop a modern single-page frontend with responsive timetable grid visualization.
+- **Graphical User Interface (GUI):** Build a modern UI using JavaFX or React to display the timetable as a visual weekly grid with color-coded slots.
+- **Database Integration:** Connect the `DataStore` interface to a relational database like PostgreSQL or MySQL using JDBC.
+- **Real-Time Push Notifications:** Send actual email or SMS notifications when a student is promoted from the waitlist.
 
 ---
 
 ## 15. References
 1. Schildt, Herbert. *Java: The Complete Reference*, 12th Edition. McGraw-Hill Education, 2021.
 2. Bloch, Joshua. *Effective Java*, 3rd Edition. Addison-Wesley Professional, 2018.
-3. Oracle Corporation. *Java SE 21 Documentation and Specifications*, 2023.
-4. Vellore Institute of Technology. *FFCS Course Allocation and Academic Regulations Handbook*, 2025.
+3. Oracle Corporation. *Java SE 21 Language Documentation & Specifications*, 2023.
+4. Vellore Institute of Technology. *FFCS Course Allocation Guidelines and Academic Regulations Handbook*, 2025.

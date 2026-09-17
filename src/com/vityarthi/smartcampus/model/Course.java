@@ -3,8 +3,7 @@ package com.vityarthi.smartcampus.model;
 import java.util.*;
 
 /**
- * Abstract base class for academic courses.
- * Demonstrates Abstraction, Encapsulation, and Polymorphism.
+ * Abstract course model representing any academic subject offered on campus.
  */
 public abstract class Course implements Comparable<Course> {
     private final String courseCode;

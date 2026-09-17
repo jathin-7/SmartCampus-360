@@ -6,8 +6,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 /**
- * Interface defining persistent data access operations for SmartCampus entities.
- * Demonstrates Abstraction and Repository Pattern.
+ * Interface defining persistence operations for users, courses, and registrations.
  */
 public interface DataStore {
     // User operations

@@ -3,8 +3,7 @@ package com.vityarthi.smartcampus.util;
 import java.util.regex.Pattern;
 
 /**
- * Utility class providing validation routines for inputs.
- * Demonstrates input sanitization and regex validation.
+ * Validates registration numbers, course codes, and emails using regular expressions.
  */
 public final class InputValidator {
     // Matches VIT Registration Format e.g., 25BAI10611

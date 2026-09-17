@@ -11,8 +11,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Robust file-based and in-memory persistence implementation of DataStore.
- * Demonstrates Java File I/O, Streams, Collections Framework, and Thread Safety.
+ * Manages thread-safe in-memory caching and persistent CSV file saving/loading.
  */
 public class StorageManager implements DataStore {
     private final Path dataDirectory;
