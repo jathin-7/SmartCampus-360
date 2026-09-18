@@ -9,7 +9,7 @@ A modular Java project built for **CSE2006 (Programming in Java)** at **VIT Bhop
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 **SmartCampus 360** is a console-based academic management system inspired by the Fully Flexible Credit System (FFCS) at VIT. It solves common real-world challenges faced by students and faculty during course registration:
 
 1. **Preventing Timetable Clashes**: Automatically flags if a student tries to register for two courses running in the same slot (e.g., Slot `A1` vs `A1`, or composite slots like `L1+L2`).
@@ -21,7 +21,7 @@ A modular Java project built for **CSE2006 (Programming in Java)** at **VIT Bhop
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 ### For Students
 - View all available theory and lab courses with live seat availability.
@@ -43,7 +43,7 @@ A modular Java project built for **CSE2006 (Programming in Java)** at **VIT Bhop
 
 ---
 
-## 💻 Java Concepts Applied
+##  Java Concepts Applied
 This project was built without any heavy external libraries or databases, using pure Core Java (JDK 21):
 - **Object-Oriented Programming (OOP)**:
   - **Abstraction**: Abstract `User` and `Course` base classes; `DataStore` interface.
@@ -57,7 +57,7 @@ This project was built without any heavy external libraries or databases, using 
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 ```
 java project/
 ├── build_and_run.bat                            # Compile and start the app
@@ -87,7 +87,7 @@ java project/
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 ### Prerequisites
 - Java JDK 21 or later (`javac -version` and `java -version`)
@@ -125,7 +125,7 @@ java -cp bin com.vityarthi.smartcampus.test.SystemTestSuite
 
 ---
 
-## 🧪 Testing & Validation
+##  Testing & Validation
 The project includes a built-in test runner (`SystemTestSuite`) with 11 automated test cases:
 
 ```
@@ -153,9 +153,9 @@ Candidate: YATHAM JATHINDRA REDDY | Reg No: 25BAI10611 | Course: CSE2006
 
 ---
 
-## 👤 Author
+##  Author
 - **Name**: YATHAM JATHINDRA REDDY
 - **Registration Number**: 25BAI10611
 - **Course**: CSE2006 (Programming in Java)
-- **Institution**: Vellore Institute of Technology (VIT Bhopal)
-- **Year**: 2025–2026
+- **Institution**: VIT Bhopal
+
